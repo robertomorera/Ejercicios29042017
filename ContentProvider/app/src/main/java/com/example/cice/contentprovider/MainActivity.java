@@ -32,11 +32,12 @@ public class MainActivity extends AppCompatActivity {
         //Cursor cursor_contactos = contentResolver.query(uri_contactos, null, null, null, null);
         //Cursor cursor_contactos = contentResolver.query(uri_contactos, null,ContactsContract.Contacts.DISPLAY_NAME+" = 'Mama Mvl'", null, null);
         //Cursor cursor_contactos = contentResolver.query(uri_contactos, null,ContactsContract.Contacts.HAS_PHONE_NUMBER+"= 1", null, null);
-        Cursor cursor_contactos = contentResolver.query(uri_contactos, null, null, null,ContactsContract.Contacts.DISPLAY_NAME+" ASC"); //Con esto ordeno ascendentemente los contactos.
+        //Cursor cursor_contactos = contentResolver.query(uri_contactos, null, null, null, ContactsContract.Contacts.DISPLAY_NAME + " ASC"); //Con esto ordeno ascendentemente los contactos.
         //String [] prefijo={"M%"};
         //Cursor cursor_contactos = contentResolver.query(uri_contactos, null,ContactsContract.Contacts.DISPLAY_NAME + " LIKE ?", prefijo, null);
         //String [] columnas={ContactsContract.Contacts.DISPLAY_NAME};
         //Cursor cursor_contactos = contentResolver.query(uri_contactos,columnas, null, null, null);
+        /*
         if (cursor_contactos.moveToFirst()) {
             Log.d("MENSAJE", "NUMERO DE CONTACTOS = " + cursor_contactos.getCount());
 
@@ -81,11 +82,23 @@ public class MainActivity extends AppCompatActivity {
             } while (cursor_contactos.moveToNext());
             cursor_contactos.close();
         }
+    }*/
+
+    Cursor phones=contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
+
+        while(phones.moveToNext()){
+            String number=phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            int type=phones.getInt(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.TYPE));
+            Log.d("MENSAJE","TELEFONO= "+number + " TIPO= "+type);
+        }
+
+        phones.close();
+
+
+
     }
 
 }
-
-
 
 
 
